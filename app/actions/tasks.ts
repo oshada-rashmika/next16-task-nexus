@@ -42,3 +42,23 @@ export async function createTask(formData:{
         return { success: false, error: "Failed to create task." };
     }
 }
+
+export async function updatedTaskStatus(
+    id: string,
+    newStatus: Status
+): Promise<ActionResponse> {
+    try {
+        if (!id) return { success: false, error: "Task ID is required." };
+
+        const updatedTask = await prisma.task.update({
+            where: { id },
+            data: { status: newStatus },
+        });
+
+        revalidatePath("/tasks");
+        return { success: true, data: updatedTask };
+    } catch (error) {
+        console.error("Error updating task status:", error);
+        return { success: false, error: "Failed to update task status." };
+    }
+}
