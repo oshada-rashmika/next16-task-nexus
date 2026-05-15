@@ -62,3 +62,19 @@ export async function updatedTaskStatus(
         return { success: false, error: "Failed to update task status." };
     }
 }
+
+export async function deleteTask(id: string): Promise<ActionResponse> {
+    try {
+        if (!id) return { success: false, error: "Task ID is required." };
+
+        await prisma.task.delete({
+            where: { id },
+        });
+
+        revalidatePath("/tasks");
+        return { success: true };
+    } catch (error) {
+        console.error("Error deleting task:", error);
+        return { success: false, error: "Failed to delete task." };
+    }
+}
