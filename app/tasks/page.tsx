@@ -1,3 +1,4 @@
+import TaskForm from "@/components/TaskForm";
 import { PrismaClient } from "../generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { Pool } from "pg";
@@ -16,7 +17,7 @@ export default async function TasksPage() {
     <div style={{ maxWidth: "600px", margin: "0 auto", padding: "20px", fontFamily: "monospace" }}>
       <h1>COUNCIL TASKS</h1>
       <div style={{ border: "1px dashed #444", padding: "10px", marginBottom: "20px" }}>
-        [Task Form Will Go Here]
+        <TaskForm />
       </div>
 
       <h2>ACTIVE RECORDS ({tasks.length})</h2>
